@@ -6,6 +6,13 @@ export default function Footer() {
   const { t } = useLanguage();
   const year = new Date().getFullYear();
 
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  };
+
   return (
     <footer className="bg-[#000000] border-t border-gray-900 py-12 text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -14,7 +21,19 @@ export default function Footer() {
           
           {/* Left */}
           <div className="flex flex-col items-center md:items-start text-center md:text-left">
-            <img src="/logo_cs.png" alt="Logo" className="h-12 w-auto object-contain brightness-0 invert opacity-80" />
+            <button
+              id="footer-back-to-top-btn"
+              onClick={scrollToTop}
+              className="group focus:outline-none transition-transform duration-200 hover:scale-105"
+              aria-label="Voltar ao topo"
+              title="Voltar ao topo"
+            >
+              <img 
+                src="/logo_cs.png" 
+                alt="Logo" 
+                className="h-12 w-auto object-contain brightness-0 invert opacity-80 group-hover:opacity-100 transition-all cursor-pointer" 
+              />
+            </button>
           </div>
 
           {/* Center */}

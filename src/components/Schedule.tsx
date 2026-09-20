@@ -1,51 +1,10 @@
 import React from 'react';
 import { useLanguage } from '../i18n';
 import { motion } from 'motion/react';
-import { Calendar, Clock, MapPin } from 'lucide-react';
+import { Calendar, Clock } from 'lucide-react';
 
 export default function Schedule() {
   const { t } = useLanguage();
-
-  const events = [
-    {
-      day: "Domingo",
-      schedule: [
-        { time: "19:00h", title: "Culto de Louvor e Adoração" }
-      ],
-      icon: <Calendar className="w-8 h-8 text-brand-orange" />
-    },
-    {
-      day: "Segunda-feira",
-      schedule: [
-        { time: "15:00h", title: "Monte de Oração" },
-        { time: "19:30h", title: "Culto no Lar" }
-      ],
-      icon: <Calendar className="w-8 h-8 text-brand-orange" />
-    },
-    {
-      day: "Terça-feira",
-      schedule: [
-        { time: "19:30h", title: "Culto da Família" }
-      ],
-      icon: <Calendar className="w-8 h-8 text-brand-orange" />
-    },
-    {
-      day: "Quarta-feira",
-      schedule: [
-        { time: "18:00h", title: "Projeto Ana (online)" },
-        { time: "19:30h", title: "Visitação" }
-      ],
-      icon: <Calendar className="w-8 h-8 text-brand-orange" />
-    },
-    {
-      day: "Sexta-feira",
-      schedule: [
-        { time: "19:00h", title: "Estudo Bíblico" },
-        { time: "20:30h", title: "Monte de Oração" }
-      ],
-      icon: <Calendar className="w-8 h-8 text-brand-orange" />
-    }
-  ];
 
   return (
     <section id="schedule" className="py-24 bg-brand-black relative">
@@ -57,36 +16,36 @@ export default function Schedule() {
           <div className="w-24 h-1 bg-brand-gold mx-auto mt-8 rounded-full"></div>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          {events.map((event, index) => (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {t.schedule.events.map((event, index) => (
             <motion.div
               key={index}
-              initial={{ opacity: 0, x: index % 2 === 0 ? -20 : 20 }}
-              whileInView={{ opacity: 1, x: 0 }}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.5 }}
-              className="bg-[#0A0A0A] border border-gray-800 rounded-2xl p-8 hover:border-gray-600 hover:shadow-[0_8px_30px_rgb(0,0,0,0.5)] transition-all duration-300 flex flex-col sm:flex-row gap-6 group"
+              transition={{ duration: 0.4, delay: index * 0.05 }}
+              className="bg-[#0A0A0A] border border-gray-800 rounded-2xl p-6 md:p-8 hover:border-brand-gold/40 hover:shadow-[0_8px_30px_rgb(0,0,0,0.5)] transition-all duration-300 flex flex-col gap-5 group"
             >
-              <div className="flex-shrink-0 bg-gray-900 p-4 rounded-xl self-start group-hover:scale-110 transition-transform duration-300">
-                {event.icon}
+              <div className="flex items-center justify-between gap-4">
+                <span className="inline-block px-4 py-1.5 bg-gray-800/80 border border-gray-700/50 text-brand-gold rounded-full text-xs sm:text-sm font-bold tracking-wide uppercase">
+                  {event.day}
+                </span>
+                <div className="w-10 h-10 rounded-xl bg-gray-900 border border-gray-800 flex items-center justify-center text-brand-orange group-hover:scale-110 transition-transform duration-300">
+                  <Calendar size={20} />
+                </div>
               </div>
-              <div className="flex-1 w-full">
-                <div className="mb-4">
-                  <span className="inline-block px-4 py-1.5 bg-gray-800 text-brand-gold rounded-full text-sm font-bold tracking-wide uppercase">
-                    {event.day}
-                  </span>
-                </div>
-                
-                <div className="space-y-4">
-                  {event.schedule.map((item, idx) => (
-                    <div key={idx} className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 pb-4 border-b border-gray-800/50 last:border-0 last:pb-0">
-                      <span className="flex items-center gap-2 px-3 py-1 bg-gray-900/80 text-gray-300 rounded-md text-sm font-semibold w-fit shrink-0">
-                        <Clock size={14} className="text-brand-orange" /> {item.time}
-                      </span>
-                      <h3 className="text-lg font-bold font-heading text-white">{item.title}</h3>
-                    </div>
-                  ))}
-                </div>
+              
+              <div className="space-y-4 pt-2">
+                {event.schedule.map((item, idx) => (
+                  <div key={idx} className="flex flex-col gap-2.5">
+                    <span className="flex items-center gap-1.5 px-3 py-1 bg-gray-900 text-gray-300 rounded-md text-xs sm:text-sm font-semibold w-fit border border-gray-800">
+                      <Clock size={14} className="text-brand-orange shrink-0" /> {item.time}
+                    </span>
+                    <h3 className="text-lg md:text-xl font-bold font-heading text-white leading-snug">
+                      {item.title}
+                    </h3>
+                  </div>
+                ))}
               </div>
             </motion.div>
           ))}
